@@ -2,6 +2,8 @@
   <div>
     <main-layout @hide-modal="revokeFlags" :isShowLogin="isShowLoginModal" :isShowRegister="isShowRegisterModal">
       <Header @open-login="showLogin" @open-register="showRegister" :isAuthenticated="isAuthenticated" />
+
+      <main-content />
     </main-layout>
   </div>
 </template>
@@ -11,11 +13,13 @@ import {defineComponent, computed, ref} from "vue";
 import Header from "../components/Header.vue";
 
 import mainLayout from '../layouts/main-layout.vue';
+import MainContent from "../components/content/main-content.vue";
 
 export default defineComponent({
   name: "MainPage",
 
   components: {
+    MainContent,
     Header,
     mainLayout,
   },

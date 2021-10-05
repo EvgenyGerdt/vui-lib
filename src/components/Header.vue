@@ -1,7 +1,7 @@
 <template>
   <header class="header-container">
     <div class="header-wrapper">
-      <span>VUI</span>
+      <span>Vui</span>
       <div class="header-links">
         <router-link to="/">
           Library
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import {defineComponent, onMounted} from "vue";
 
 export default defineComponent({
   name: "MainPage",
@@ -53,6 +53,32 @@ export default defineComponent({
       emit('open-register');
     };
 
+    const debounce = (fn) => {
+      let frame;
+
+      return (...params) => {
+        if (frame) {
+          cancelAnimationFrame(frame);
+        }
+
+        frame = requestAnimationFrame(() => {
+          fn(...params);
+        })
+      }
+    };
+
+    const storeScroll = () => {
+      document.documentElement.dataset.scroll = window.scrollY;
+    };
+
+    addEventListener('scroll', debounce(storeScroll), {
+      passive: true,
+    });
+
+    onMounted(() => {
+      storeScroll();
+    })
+
     return {
       handleLoginBtn,
       handleRegisterBtn
@@ -62,6 +88,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+  html:not([data-scroll='0']) {
+    .header-container {
+      position: fixed;
+      top: 0;
+      transition: 500ms ease;
+      box-shadow: 0 0 .5em rgba(0, 0, 0, .1);
+    }
+  }
+
   .header {
     &-container {
       width: 100%;
@@ -69,6 +104,7 @@ export default defineComponent({
       position: fixed;
       background: white;
       justify-content: center;
+      transition: 500ms ease;
     }
 
     &-wrapper {
@@ -77,7 +113,7 @@ export default defineComponent({
 
       > span {
         flex: 1;
-        font-weight: bold;
+        font-weight: 500;
         font-size: 24px;
       }
     }
@@ -96,7 +132,7 @@ export default defineComponent({
           letter-spacing: 2px;
 
           &:hover {
-            color: #3eaf7c;
+            color: #FF8383;
           }
         }
     }
@@ -115,7 +151,7 @@ export default defineComponent({
 
       > button {
         margin: 0 10px 0 10px;
-        background: #3eaf7c;
+        background: #FF8383;
         padding: 10px 20px;
         box-sizing: border-box;
         border: transparent;

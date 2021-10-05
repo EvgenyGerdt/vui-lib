@@ -10,6 +10,13 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'BirthStone';
+  src: url("/assets/fonts/BirthstoneBounce-Regular.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 #app {
   font-family: Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
